@@ -3,17 +3,38 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Menu from "./componentes/menu";
 import Inicio from "./Paginas/Inicio";
 import SobreMim from "./Paginas/SobreMim";
+import PaginaPadrao from "componentes/PaginaPadrao";
+import Post from "Paginas/Post";
+import NaoEncontrada from "Paginas/NaoEncontrado";
+import ScrollToTop from "componentes/ScrollToTop";
 
 
 function AppRoutes() {
   return (
     <BrowserRouter>
+      <ScrollToTop/>
       <Menu/>
       
       <Routes>
-        <Route path="/" element={<Inicio/>}/>
-        <Route path="/sobremim" element={<SobreMim/>}/>
-        <Route path="*" element={<div><h1>Pagina não encontrada!</h1></div>}/>
+        <Route path="/" element={<PaginaPadrao />}>
+          <Route path="/" element={<Inicio/>}/>
+          <Route path="/sobremim" element={<SobreMim/>}/>
+        </Route>
+        {/*
+          Na rota "/" , a estrutura a ser renderizada é:
+
+          <PaginaPadrao>
+            <Inicio />
+          </PaginaPadrao>
+
+            Na rota "/" , a estrutura a ser renderizada é:
+
+          <PaginaPadrao>
+            <Inicio />
+          </PaginaPadrao>
+        */}
+        <Route path="posts/:id/*" element={<Post/>}/>
+        <Route path="*" element={<NaoEncontrada/>}/>
       </Routes>
 
       <Rodape/>
